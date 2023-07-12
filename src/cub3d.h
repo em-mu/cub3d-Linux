@@ -139,7 +139,7 @@ double	calculate_rayon_horizontal(t_game *game, int i);
 double	calculate_rayon_vertical(t_game *game, int i);
 int 	coll_ray(t_game *game, int i, int j);
 void	find_shortest_ray(t_game *game, int i, double distH, double distV);
-void    draw_column(t_game *game, int i);
+void    draw_column(t_game *game, int i, int test);
 void	resize_hook(int width, int height, void *param);
 
 

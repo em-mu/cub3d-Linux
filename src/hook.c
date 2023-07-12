@@ -45,15 +45,8 @@ double	fish_eye(t_game *game, int k, int i, float dist)
 
 void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 {
-	float r1;
-	float r2;
-	
-	r1 = 0;
-	r2 = 0;
 	if(distH < distV)
 	{
-		r1 = game->ray[0][i].r.x;
-		r2 = game->ray[0][i].r.y;
 		game->dist_ray[i] = fish_eye(game, 0, i, distH);
 		if (game->ray[0][i].angle > PI)
 			game->side[i] = 0;
@@ -62,8 +55,6 @@ void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 	}
 	else 
 	{
-		r1 = game->ray[1][i].r.x;
-		r2 = game->ray[1][i].r.y;
 		game->dist_ray[i] = fish_eye(game, 1, i, distV);
 		if (game->ray[0][i].angle > PI/2 && game->ray[0][i].angle < 3*PI/2)
 			game->side[i] = 2;
@@ -71,31 +62,11 @@ void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 			game->side[i] = 3;
 	
 	}
-	
-	// game->rdx = game->player.coord.x + (PLAYER_SIZE / 2);
-    // game->rdy = game->player.coord.y + (PLAYER_SIZE / 2);
-	// int j = 0;
-    // while(j++ < 1000 && (int)r1+1 != (int)game->rdx && (int)r2+1 != (int)game->rdy)
-    // {
-    //     game->rdx -= cosf(game->ray[0][i].angle);
-    //     game->rdy -= sinf(game->ray[0][i].angle);
-    //     mlx_put_pixel(game->window, game->rdx, game->rdy, get_rgba(255,255,255,255));
-    // }
-	
-	int k = 0;
-	while (k < 2)
-	{
-		int j = -1;
-		while (++j < 2)
-			mlx_put_pixel(game->window, r1 , r2 , get_rgba(255,255,255,255));
-		k++;
-	}
 }
 
 void	resize_hook(int width, int height, void *param)
 {
 	t_game	*game;
-	printf("width = %d, height = %d\n", width, height);
 	game = (t_game *)param;
 	game->display_width = width;
 	game->display_height = height;
@@ -106,7 +77,7 @@ void	ft_hook(void *param)
 	t_game	*game;
 	double distH = 0;
 	double distV = 0;
-
+	double test = 0;
 	game = (t_game *)param;
 	update_position(game);
 	mlx_delete_image(game->mlx, game->window);
@@ -120,12 +91,36 @@ void	ft_hook(void *param)
 		i++;
 	}
 	i = 0;
-	while (i < game->display_width)
+	double seuil = 0;
+	double ratio = game->display_width / 1600.0;
+	double ratio2 = ratio - 1;
+	while (i < DISPLAY_WIDTH)
 	{
-		draw_column(game, i);
-		// draw_column(game, i);
-		i += 1;
+		test = i * ratio;
+		draw_column(game, i, test);
+		if (seuil > 1) {
+			draw_column(game, i, --test);
+			seuil--;
+		}
+		if (seuil == 1) {
+			draw_column(game, i, test);
+			seuil--;
+		}
+		i++;
+		seuil += ratio2;
 	}
+	/*
+	i x ratio 
+	RATIO 1.5
+	0 - 1x
+	1 - 2x
+	RATIO 2
+	0 - 2x
+	1 - 2x
+	RATIO 2.5
+	0 - 2x
+	1 - 2.5x
+	*/
 	put_map_pixel(game);
 	put_player_pixel(game);
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
