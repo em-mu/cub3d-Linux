@@ -40,8 +40,8 @@ typedef struct s_texture
 	char	*south;
 	char	*west;
 	char	*east;
-	char	*floor;
-	char	*ceiling;
+	int		floor[3];
+	int		ceiling[3];
 }	t_texture;
 
 typedef struct s_point
@@ -71,6 +71,7 @@ typedef struct s_game
 	char		**map;
 	int			map_width;
 	int			map_height;
+	t_texture	tex;
 	float		pdy;
 	float		pdx;
 	float		rdx;
@@ -78,6 +79,7 @@ typedef struct s_game
 	t_rayon		ray[2][N_RAY];
 	double		dist_ray[N_RAY];
 	double		lineH[N_RAY];
+	int			side[N_RAY];
 }	t_game;
 
 //utils

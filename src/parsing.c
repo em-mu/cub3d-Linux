@@ -139,6 +139,27 @@ void	check_tex_num(char 	**file)
 	}
 }
 
+void	fill_color(int *tex, char **str)
+{
+	char **rgb;
+
+	rgb = ft_split(str[1], ',');
+	int i = 0;
+	while (rgb[i])
+		i++;
+	if (i != 3)
+	{
+		printf("Error \nInvalid texture: wrong identifier\n");
+		free_tab(str);
+		free_tab(rgb);
+		exit(-1);
+	}
+	i = -1;
+	while (rgb[++i])
+		tex[i] = ft_atoi(rgb[i]);
+	free_tab(rgb);
+}
+
 void	fill_tex_data(t_texture *tex, char **file)
 {
 	char	**tmp;
@@ -159,12 +180,13 @@ void	fill_tex_data(t_texture *tex, char **file)
 		else if (!ft_strncmp(tmp[0], "EA", 2) && !tmp[0][2] && !tmp[2])
 			tex->east = ft_strdup(tmp[1]);
 		else if (!ft_strncmp(tmp[0], "F", 1) && !tmp[0][1] && !tmp[2])
-			tex->floor = ft_strdup(tmp[1]);		// au lieu d'un char * on veux atoi dans un tableau d'int
+			fill_color(tex->floor, tmp);
 		else if (!ft_strncmp(tmp[0], "C", 1) && !tmp[0][1] && !tmp[2])
-			tex->ceiling = ft_strdup(tmp[1]);   // au lieu d'un char * on veux atoi dans un tableau d'int
+			fill_color(tex->ceiling, tmp); 
 		else
 		{
 			printf("Error \nInvalid texture: wrong identifier\n");
+			free_tab(tmp);
 			exit (1);
 		}
 		free_tab(tmp);

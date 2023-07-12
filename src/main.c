@@ -53,6 +53,7 @@ void	init_game(t_game *game)
 	{
 		game->dist_ray[i] = 0;
 		game->lineH[i] = 0;
+		game->side[i] = 0;
 	}
 }
 

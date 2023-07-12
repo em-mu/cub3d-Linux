@@ -30,6 +30,19 @@ void	update_position(t_game *game)
 		move_point(game, (3 * PI / 2));
 }
 
+double	fish_eye(t_game *game, int k, int i, float dist)
+{
+	float ca;
+
+	ca = game->ray[k][i].angle - game->player.angle;
+	if (ca < 0)
+		ca += 2 * PI;
+	if (ca > 2 * PI)
+		ca -= 2 * PI;
+	dist = dist * cos(ca);
+	return (dist);
+}
+
 void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 {
 	float r1;
@@ -41,13 +54,22 @@ void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 	{
 		r1 = game->ray[0][i].r.x;
 		r2 = game->ray[0][i].r.y;
-		game->dist_ray[i] = distH;
+		game->dist_ray[i] = fish_eye(game, 0, i, distH);
+		if (game->ray[0][i].angle > PI)
+			game->side[i] = 0;
+		else
+			game->side[i] = 1;
 	}
 	else 
 	{
 		r1 = game->ray[1][i].r.x;
 		r2 = game->ray[1][i].r.y;
-		game->dist_ray[i] = distV;
+		game->dist_ray[i] = fish_eye(game, 1, i, distV);
+		if (game->ray[0][i].angle > PI/2 && game->ray[0][i].angle < 3*PI/2)
+			game->side[i] = 2;
+		else 
+			game->side[i] = 3;
+	
 	}
 	
 	// game->rdx = game->player.coord.x + (PLAYER_SIZE / 2);
@@ -93,8 +115,8 @@ void	ft_hook(void *param)
 	while (i < N_RAY)
 	{
 		draw_column(game, i);
-		draw_column(game, i+1);
-		i += 2;
+		// draw_column(game, i);
+		i += 1;
 	}
 	put_map_pixel(game);
 	put_player_pixel(game);

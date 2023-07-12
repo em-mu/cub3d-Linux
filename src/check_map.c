@@ -149,7 +149,7 @@ int	check_arg_and_map(char **ar, int ac, t_game *game)
 	if (fd == -1)
 		return (printf("Error \nInvalid map : map does not exist\n"));
 	full_file = read_map(fd);
-	// game->tex = read_texture_data(full_file);
+	game->tex = read_texture_data(full_file);
 	game->map = extract_map_from_file(full_file);
 	free_tab(full_file);
 	return (0);
