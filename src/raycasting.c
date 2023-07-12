@@ -39,7 +39,7 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 	
 	// on  initialise
 	float step = i ;
-	game->ray[0][i].angle = game->player.angle - (30 * DR - (step * DR));
+	game->ray[0][i].angle = game->player.angle - (N_RAY/2 * DR - (step * DR));
 	game->ray[0][i].angle = adjust_angle(game->ray[0][i].angle);
 	
 	game->ray[0][i].r.x = game->player.coord.x;
@@ -102,7 +102,7 @@ double	calculate_rayon_vertical(t_game *game, int i)
 	
 	// on  initialise
 	float step = i  ;
-	game->ray[1][i].angle = game->player.angle - (30 * DR - (step * DR));
+	game->ray[1][i].angle = game->player.angle - (N_RAY/2 * DR - (step * DR));
 	game->ray[1][i].angle = adjust_angle(game->ray[1][i].angle);
 	
 	game->ray[1][i].r.x = game->player.coord.x;

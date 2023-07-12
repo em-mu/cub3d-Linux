@@ -81,16 +81,22 @@ void	ft_hook(void *param)
 	update_position(game);
 	mlx_delete_image(game->mlx, game->window);
 	game->window = mlx_new_image(game->mlx, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-	put_map_pixel(game);
-	put_player_pixel(game);
 	int i = 0;
 	while (i < N_RAY)
 	{
 		distH = calculate_rayon_horizontal(game, i);
 		distV = calculate_rayon_vertical(game, i);
 		find_shortest_ray(game, i, distH, distV);
-		draw_column(game, i);
 		i++;
 	}
+	i = 0;
+	while (i < N_RAY)
+	{
+		draw_column(game, i);
+		draw_column(game, i+1);
+		i += 2;
+	}
+	put_map_pixel(game);
+	put_player_pixel(game);
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
 }
