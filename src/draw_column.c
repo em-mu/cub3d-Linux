@@ -25,11 +25,11 @@ void    draw_column(t_game *game, int i)
 		color = get_rgba(150,150,0,255);
 	if (game->side[i] == 3)
 		color = get_rgba(0,100,100,255);
-    game->lineH[i] = DISPLAY_HEIGHT * 12 / game->dist_ray[i];
-    line_o =  fabs(DISPLAY_HEIGHT - game->lineH[i]) / 2 ;
-    if (game->lineH[i] > DISPLAY_HEIGHT)
-		game->lineH[i] = DISPLAY_HEIGHT;
-	if (game->lineH[i] + line_o > DISPLAY_HEIGHT)
+    game->lineH[i] = game->display_height * 12 / game->dist_ray[i];
+    line_o =  fabs(game->display_height - game->lineH[i]) / 2 ;
+    if (game->lineH[i] > game->display_height)
+		game->lineH[i] = game->display_height;
+	if (game->lineH[i] + line_o > game->display_height)
 		line_o = 0;
     
 	int j;
@@ -41,7 +41,7 @@ void    draw_column(t_game *game, int i)
     int color_floor = get_rgba(game->tex.floor[0], game->tex.floor[1], game->tex.floor[2], 255);
     while (++j < line_o)
         mlx_put_pixel(game->window, i , j, color_ceiling);
-    j = DISPLAY_HEIGHT;
+    j = game->display_height;
     while (--j >= game->lineH[i] + line_o - 1)
         mlx_put_pixel(game->window, i , j, color_floor);
 }

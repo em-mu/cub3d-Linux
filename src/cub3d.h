@@ -12,14 +12,14 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define DISPLAY_WIDTH 3840
-# define DISPLAY_HEIGHT 2160
+# define DISPLAY_WIDTH 1600
+# define DISPLAY_HEIGHT 900
 # define MINIMAP_BLOC_SIZE 16
-# define SPEED 1
-# define PLAYER_SIZE 2
+# define SPEED 2
+# define PLAYER_SIZE MINIMAP_BLOC_SIZE/3
 # define PI M_PI
-# define N_RAY 3840
-# define DR 0.0002727
+# define N_RAY 1600
+# define DR 0.00065449875
 # include "../libft/libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>
@@ -65,6 +65,8 @@ typedef struct s_rayon
 
 typedef struct s_game
 {
+	int		    display_width;
+	int			display_height;
 	t_player	player;
 	mlx_t		*mlx;
 	mlx_image_t	*window;
@@ -138,5 +140,7 @@ double	calculate_rayon_vertical(t_game *game, int i);
 int 	coll_ray(t_game *game, int i, int j);
 void	find_shortest_ray(t_game *game, int i, double distH, double distV);
 void    draw_column(t_game *game, int i);
+void	resize_hook(int width, int height, void *param);
+
 
 #endif
