@@ -92,35 +92,18 @@ void	ft_hook(void *param)
 	}
 	i = 0;
 	double seuil = 0;
-	double ratio = game->display_width / 1600.0;
-	double ratio2 = ratio - 1;
+	double ratio = game->display_width / 1920.0;
 	while (i < DISPLAY_WIDTH)
 	{
 		test = i * ratio;
 		draw_column(game, i, test);
-		if (seuil > 1) {
+		if (seuil >= 1) {
 			draw_column(game, i, --test);
 			seuil--;
 		}
-		if (seuil == 1) {
-			draw_column(game, i, test);
-			seuil--;
-		}
 		i++;
-		seuil += ratio2;
+		seuil += ratio;
 	}
-	/*
-	i x ratio 
-	RATIO 1.5
-	0 - 1x
-	1 - 2x
-	RATIO 2
-	0 - 2x
-	1 - 2x
-	RATIO 2.5
-	0 - 2x
-	1 - 2.5x
-	*/
 	put_map_pixel(game);
 	put_player_pixel(game);
 	mlx_image_to_window(game->mlx, game->window, 0, 0);

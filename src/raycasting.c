@@ -34,12 +34,10 @@ int coll_ray(t_game *game, int i, int j)
 double	calculate_rayon_horizontal(t_game *game, int i)
 {
 	float	h;
-	// int		dof = 0;
 	double	distance_wall = 100000000;
 	
 	// on  initialise
-	float step = i ;
-	game->ray[0][i].angle = game->player.angle - (N_RAY/2 * DR - (step * DR));
+	game->ray[0][i].angle = game->player.angle - (N_RAY/2 * DR - (i * DR));
 	game->ray[0][i].angle = adjust_angle(game->ray[0][i].angle);
 	
 	game->ray[0][i].r.x = game->player.coord.x;
@@ -88,7 +86,43 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 				game->ray[0][i].r.x += game->ray[0][i].o.x;
 				game->ray[0][i].r.y += game->ray[0][i].o.y;
 			}
-			// dof++;
+		}
+	}
+	return (distance_wall);
+}
+
+void	add_offset_vert(t_game *game, int i)
+{
+	if (game->ray[1][i].r.x < 0 || game->ray[1][i].r.x >= DISPLAY_WIDTH || game->ray[1][i].r.y < 0 || game->ray[1][i].r.y >= DISPLAY_HEIGHT)
+		break;
+	if (game->ray[1][i].angle > (PI / 2) && game->ray[1][i].angle < (3 * PI / 2))
+	{
+		game->ray[1][i].r.x += game->ray[1][i].o.x;
+		game->ray[1][i].r.y += game->ray[1][i].o.y;
+	}
+	if (game->ray[1][i].angle < (PI / 2) || game->ray[1][i].angle > (3 * PI / 2))
+	{
+		game->ray[1][i].r.x -= game->ray[1][i].o.x;
+		game->ray[1][i].r.y -= game->ray[1][i].o.y;	
+	}
+}
+
+float	check_vert_walls(t_game *game, int i)
+{
+	double	distance_wall;
+
+	distance_wall = 100000000;
+	while (1)
+	{
+		if (coll_ray(game, 1, i))
+		{
+			distance_wall = sqrt(((game->ray[1][i].r.x - game->player.coord.x) * (game->ray[1][i].r.x - game->player.coord.x)) 
+					+ (game->ray[1][i].r.y - game->player.coord.y) * (game->ray[1][i].r.y - game->player.coord.y));
+			break;
+		}
+		else
+		{
+			add_offset_vert(game, i);
 		}
 	}
 	return (distance_wall);
@@ -97,22 +131,14 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 double	calculate_rayon_vertical(t_game *game, int i)
 {
 	float	h;
-	// int		dof = 0;
-	double	distance_wall = 100000000;
+	double	distance_wall;
 	
-	// on  initialise
-	float step = i  ;
-	game->ray[1][i].angle = game->player.angle - (N_RAY/2 * DR - (step * DR));
+	game->ray[1][i].angle = game->player.angle - (N_RAY/2 * DR - (i * DR));
 	game->ray[1][i].angle = adjust_angle(game->ray[1][i].angle);
-	
 	game->ray[1][i].r.x = game->player.coord.x;
 	game->ray[1][i].r.y = game->player.coord.y;
-	
-	//On calcul l'offset
 	game->ray[1][i].o.x = MINIMAP_BLOC_SIZE;
 	game->ray[1][i].o.y = MINIMAP_BLOC_SIZE * tanf(game->ray[1][i].angle);
-
-	//on trouve les coord de la premiere intersection
 	if (game->ray[1][i].angle < (PI / 2) || game->ray[1][i].angle > (3 * PI / 2)) // on regarde vers le EST
 	{
 		game->ray[1][i].r.x = (int)((int)(game->player.coord.x / MINIMAP_BLOC_SIZE) * MINIMAP_BLOC_SIZE) - 0.0001;
@@ -125,30 +151,6 @@ double	calculate_rayon_vertical(t_game *game, int i)
 		h = fabs(game->player.coord.x - game->ray[1][i].r.x);
 		game->ray[1][i].r.y = game->player.coord.y + h * tanf(game->ray[1][i].angle);
 	}
-	while (1)
-	{
-		if (coll_ray(game, 1, i))
-		{
-			distance_wall = sqrt(((game->ray[1][i].r.x - game->player.coord.x) * (game->ray[1][i].r.x - game->player.coord.x)) 
-					+ (game->ray[1][i].r.y - game->player.coord.y) * (game->ray[1][i].r.y - game->player.coord.y));
-			break;
-		}
-		else
-		{
-			if (game->ray[1][i].r.x < 0 || game->ray[1][i].r.x >= DISPLAY_WIDTH || game->ray[1][i].r.y < 0 || game->ray[1][i].r.y >= DISPLAY_HEIGHT)
-				break;
-			if (game->ray[1][i].angle > (PI / 2) && game->ray[1][i].angle < (3 * PI / 2))
-			{
-				game->ray[1][i].r.x += game->ray[1][i].o.x;
-				game->ray[1][i].r.y += game->ray[1][i].o.y;
-			}
-			if (game->ray[1][i].angle < (PI / 2) || game->ray[1][i].angle > (3 * PI / 2))
-			{
-				game->ray[1][i].r.x -= game->ray[1][i].o.x;
-				game->ray[1][i].r.y -= game->ray[1][i].o.y;	
-			}
-			// dof++;
-		}
-	}
+	distance_wall = check_vert_walls(game, i);
 	return (distance_wall);
 }

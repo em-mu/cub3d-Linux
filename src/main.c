@@ -43,7 +43,6 @@ void	print_map(char **map)
 void	init_game(t_game *game)
 {
 	int i;
-
 	game->map = NULL;
 	game->mlx = NULL;
 	game->window = NULL;

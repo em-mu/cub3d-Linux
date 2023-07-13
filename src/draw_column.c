@@ -14,7 +14,7 @@
 
 void    draw_column(t_game *game, int i, int Q)
 {
-    double line_o;
+    float line_o;
     
 	int color = 0;
 	if (game->side[i] == 0)
@@ -26,12 +26,13 @@ void    draw_column(t_game *game, int i, int Q)
 	if (game->side[i] == 3)
 		color = get_rgba(0,100,100,255);
     game->lineH[i] = game->display_height * 12 / game->dist_ray[i];
-    line_o =  fabs(game->display_height - game->lineH[i]) / 2 ;
+    line_o = (game->lineH[i] - game->display_height) / 2 ;
+    if (line_o < 0)
+        line_o = -line_o;
     if (game->lineH[i] > game->display_height)
 		game->lineH[i] = game->display_height;
 	if (game->lineH[i] + line_o > game->display_height)
 		line_o = 0;
-    
 	int j;
     j = -1;
     while (++j < game->lineH[i])

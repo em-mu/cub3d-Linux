@@ -51,7 +51,7 @@ $(NAME):	$(OBJS) libft.a
 			$(CC) $(CFLAGS) $(OBJS) ${LINUX} $(MLX) libft.a -o $(NAME)
 
 debug:		$(OBJS) libft.a
-			$(CC) $(CFLAGS) ${LINUX} $(MLX) $(OBJS) libft.a -fsanitize=address -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) ${LINUX} $(MLX) libft.a -fsanitize=address -o $(NAME)
 
 libft.a :
 			make -C libft
