@@ -15,9 +15,9 @@
 # define DISPLAY_WIDTH 1920
 # define DISPLAY_HEIGHT 1080
 # define MINIMAP_BLOC_SIZE 16
-# define SPEED 2
+# define SPEED 1
 # define PLAYER_SIZE MINIMAP_BLOC_SIZE/3
-# define PI M_PI
+# define PI 3.14159265359
 # define N_RAY 1920
 # define DR 0.000545415625
 # include "../libft/libft.h"
@@ -93,6 +93,7 @@ void	get_map_dimensions(char **map, t_game *game);
 char	**dup_tab(char **tab);
 int		get_rgba(int r, int g, int b, int a);
 float	adjust_angle(float angle);
+void put_player_pixel(t_game *game);
 
 // Parsing de la map
 int		check_map_format(char *s);
@@ -139,7 +140,7 @@ double	calculate_rayon_horizontal(t_game *game, int i);
 double	calculate_rayon_vertical(t_game *game, int i);
 int 	coll_ray(t_game *game, int i, int j);
 void	find_shortest_ray(t_game *game, int i, double distH, double distV);
-void    draw_column(t_game *game, int i, int test);
+void    draw_column(t_game *game, int i);
 void	resize_hook(int width, int height, void *param);
 
 

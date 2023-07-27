@@ -91,8 +91,6 @@ float	check_walls(t_game *game, int i, int side)
 	return (distance_wall);
 }
 
-
-
 double	calculate_rayon_horizontal(t_game *game, int i)
 {
 	float	h;

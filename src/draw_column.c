@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void    draw_column(t_game *game, int i, int Q)
+void    draw_column(t_game *game, int i)
 {
     float line_o;
     
@@ -25,24 +25,24 @@ void    draw_column(t_game *game, int i, int Q)
 		color = get_rgba(150,150,0,255);
 	if (game->side[i] == 3)
 		color = get_rgba(0,100,100,255);
-    game->lineH[i] = game->display_height * 12 / game->dist_ray[i];
-    line_o = (game->lineH[i] - game->display_height) / 2 ;
+    game->lineH[i] = DISPLAY_HEIGHT * 12 / game->dist_ray[i];
+    line_o = (game->lineH[i] - DISPLAY_HEIGHT) / 2 ;
     if (line_o < 0)
         line_o = -line_o;
-    if (game->lineH[i] > game->display_height)
-		game->lineH[i] = game->display_height;
-	if (game->lineH[i] + line_o > game->display_height)
+    if (game->lineH[i] > DISPLAY_HEIGHT)
+		game->lineH[i] = DISPLAY_HEIGHT;
+	if (game->lineH[i] + line_o > DISPLAY_HEIGHT)
 		line_o = 0;
 	int j;
     j = -1;
     while (++j < game->lineH[i])
-        mlx_put_pixel(game->window, Q , j + line_o, color);
+        mlx_put_pixel(game->window, i , j + line_o, color);
     j = -1;
     int color_ceiling = get_rgba(game->tex.ceiling[0], game->tex.ceiling[1], game->tex.ceiling[2], 255);
     int color_floor = get_rgba(game->tex.floor[0], game->tex.floor[1], game->tex.floor[2], 255);
     while (++j < line_o)
-        mlx_put_pixel(game->window, Q , j, color_ceiling);
-    j = game->display_height;
+        mlx_put_pixel(game->window, i , j, color_ceiling);
+    j = DISPLAY_HEIGHT;
     while (--j >= game->lineH[i] + line_o - 1)
-        mlx_put_pixel(game->window, Q , j, color_floor);
+        mlx_put_pixel(game->window, i , j, color_floor);
 }

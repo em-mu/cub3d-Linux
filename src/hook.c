@@ -77,7 +77,6 @@ void	ft_hook(void *param)
 	t_game	*game;
 	double distH = 0;
 	double distV = 0;
-	double test = 0;
 	game = (t_game *)param;
 	update_position(game);
 	mlx_delete_image(game->mlx, game->window);
@@ -88,23 +87,13 @@ void	ft_hook(void *param)
 		distH = calculate_rayon_horizontal(game, i);
 		distV = calculate_rayon_vertical(game, i);
 		find_shortest_ray(game, i, distH, distV);
+		draw_column(game, i);
 		i++;
-	}
-	i = 0;
-	double seuil = 0;
-	double ratio = game->display_width / 1920.0;
-	while (i < DISPLAY_WIDTH)
-	{
-		test = i * ratio;
-		draw_column(game, i, test);
-		if (seuil >= 1) {
-			draw_column(game, i, --test);
-			seuil--;
-		}
-		i++;
-		seuil += ratio;
 	}
 	put_map_pixel(game);
 	put_player_pixel(game);
+	mlx_texture_t *wall_tex = mlx_load_png("./images/qdenizar.png");
+	mlx_image_t *wall_img = mlx_texture_to_image(game->mlx, wall_tex);
+	mlx_image_to_window(game->mlx, wall_img, 0, 0);
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
 }

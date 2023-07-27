@@ -23,21 +23,10 @@ int	open_window(t_game *game)
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
 	mlx_resize_hook(game->mlx, &resize_hook, game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (EXIT_SUCCESS);
-}
-
-void	print_map(char **map)
-{
-	int i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
 }
 
 void	init_game(t_game *game)
