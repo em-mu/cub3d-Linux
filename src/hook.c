@@ -90,10 +90,7 @@ void	ft_hook(void *param)
 		draw_column(game, i);
 		i++;
 	}
-	put_map_pixel(game);
-	put_player_pixel(game);
-	mlx_texture_t *wall_tex = mlx_load_png("./images/qdenizar.png");
-	mlx_image_t *wall_img = mlx_texture_to_image(game->mlx, wall_tex);
-	mlx_image_to_window(game->mlx, wall_img, 0, 0);
+	// put_map_pixel(game);
+	// put_player_pixel(game);
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
 }
