@@ -12,17 +12,6 @@
 
 #include "cub3d.h"
 
-void    draw_texture(t_game *game, char *path, int i, int line_o)
-{
-    mlx_texture_t *tex = mlx_load_png(path);
-    (void)i;
-    (void)line_o;
-    (void)game;
-
-    uint32_t j = -1; 
-    while (++j < tex->height * tex->width * tex->bytes_per_pixel)
-        printf("%d  ", tex->pixels[j]);
-}
 void    draw_floor_sky(t_game *game, int i, int line_o)
 {
     int j;
@@ -36,19 +25,59 @@ void    draw_floor_sky(t_game *game, int i, int line_o)
         mlx_put_pixel(game->window, i , j, color_floor);
 }
 
+int    *load_col(t_game *game, int i, char *path)
+{
+    mlx_texture_t *tex = mlx_load_png(path);
+    int *col;
+    float k;
+    int j = 0;
+    int tmp = 0;
+
+    col = ft_calloc((int)game->lineH[i], sizeof(int));
+    if (game->side[i] == 0 || game->side[i] == 1)
+    {
+        if (game->ray[1][i].r.y < 0)
+            tmp = game->map_height * 16;
+        tmp = (tmp + (int)game->ray[1][i].r.y) % 16;
+        k = (tmp + (game->ray[1][i].r.y - (int)game->ray[1][i].r.y)) * 4;
+        // printf("%f\n", game->ray[1][i].r.y);
+    }
+    else
+    {
+        if (game->ray[0][i].r.x < 0)
+            tmp = game->map_width * 16;
+        tmp = (tmp + (int)game->ray[0][i].r.x) % 16;
+        k = (tmp + (game->ray[0][i].r.x - (int)game->ray[0][i].r.x)) * 4;
+    }
+    double offset;
+    double ratio;
+    int test = 0;
+    ratio = 64 / game->lineH[i];
+    offset = 0;
+    while (j < (int)game->lineH[i])
+    {
+        col[j] = get_rgba(tex->pixels[test + (int)k * 4], tex->pixels[test + (int)k * 4 + 1], tex->pixels[test + (int)k * 4 + 2], tex->pixels[test + (int)k * 4 + 3]);
+        j++;
+        offset += ratio;
+        test = (int)offset * 256;
+    }
+    mlx_delete_texture(tex);
+    return (col);
+}
+
 void    draw_column(t_game *game, int i)
 {
     float line_o;
-    // char *path;
+    char *path;
     
-	// if (game->side[i] == 0)
-    //     path = game->tex.north;
-	// if (game->side[i] == 1)
-    //     path = game->tex.south;
-	// if (game->side[i] == 2)
-    //     path = game->tex.east;
-	// if (game->side[i] == 3)
-    //     path = game->tex.west;
+	if (game->side[i] == 0)
+        path = game->tex.south;
+	if (game->side[i] == 1)
+        path = game->tex.north;
+	if (game->side[i] == 2)
+        path = game->tex.east;
+	if (game->side[i] == 3)
+        path = game->tex.west;
     game->lineH[i] = DISPLAY_HEIGHT * MINIMAP_BLOC_SIZE / game->dist_ray[i];
     line_o = (game->lineH[i] - DISPLAY_HEIGHT) / 2 ;
     if (line_o < 0)
@@ -57,6 +86,13 @@ void    draw_column(t_game *game, int i)
 		game->lineH[i] = DISPLAY_HEIGHT;
 	if (game->lineH[i] + line_o > DISPLAY_HEIGHT)
 		line_o = 0;
-    // draw_texture(game, path, i, line_o);
+    int *col;
+    col = load_col(game, i, path);
+    int j = -1;
+    while (++j < (int)game->lineH[i])
+    {
+        mlx_put_pixel(game->window, i, j + line_o, col[j]);
+    }
     draw_floor_sky(game , i, line_o);
+    free(col);
 }

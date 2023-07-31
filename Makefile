@@ -30,7 +30,9 @@ OBJS =		$(SRCS:.c=.o)
 
 NAME = 		cub3d
 
-CFLAGS = 	-Wall -Wextra -Werror -g3
+CFLAGS = 	-Wall -Wextra -g3
+
+# CFLAGS += -Werror
 
 CC = 		gcc
 

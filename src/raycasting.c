@@ -107,13 +107,13 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 	if (game->ray[0][i].angle < PI) 
 	{
 		game->ray[0][i].r.y = ((int)(game->player.coord.y / MINIMAP_BLOC_SIZE) * MINIMAP_BLOC_SIZE) - 0.0001;
-		h = (game->player.coord.y - game->ray[0][i].r.y);
+		h = fabs(game->player.coord.y - game->ray[0][i].r.y);
 		game->ray[0][i].r.x = game->player.coord.x + (h * artan);
 	}
 	if (game->ray[0][i].angle > PI) 
 	{
 		game->ray[0][i].r.y = ((int)(game->player.coord.y / MINIMAP_BLOC_SIZE) * MINIMAP_BLOC_SIZE) + MINIMAP_BLOC_SIZE;
-		h = (game->ray[0][i].r.y - game->player.coord.y);
+		h = fabs(game->ray[0][i].r.y - game->player.coord.y);
 		game->ray[0][i].r.x = game->player.coord.x - (h * artan);
 	}
 	distance_wall = check_walls(game, i, 0);

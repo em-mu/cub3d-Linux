@@ -15,7 +15,7 @@
 # define DISPLAY_WIDTH 1920
 # define DISPLAY_HEIGHT 1080
 # define MINIMAP_BLOC_SIZE 16
-# define SPEED 3
+# define SPEED 5
 # define PLAYER_SIZE MINIMAP_BLOC_SIZE/3
 # define PI 3.14159265359
 # define N_RAY 1920
@@ -46,8 +46,8 @@ typedef struct s_texture
 
 typedef struct s_point
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }	t_point;
 
 typedef struct s_player

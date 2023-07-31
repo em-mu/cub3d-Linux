@@ -82,6 +82,7 @@ void	ft_hook(void *param)
 	mlx_delete_image(game->mlx, game->window);
 	game->window = mlx_new_image(game->mlx, game->display_width, game->display_height);
 	int i = 0;
+		printf("begin\n");
 	while (i < N_RAY)
 	{
 		distH = calculate_rayon_horizontal(game, i);
@@ -90,7 +91,8 @@ void	ft_hook(void *param)
 		draw_column(game, i);
 		i++;
 	}
-	// put_map_pixel(game);
-	// put_player_pixel(game);
+		printf("end\n");
+	put_map_pixel(game);
+	put_player_pixel(game);
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
 }
