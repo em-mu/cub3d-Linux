@@ -14,8 +14,8 @@
 # define CUB3D_H
 # define DISPLAY_WIDTH 1920
 # define DISPLAY_HEIGHT 1080
-# define MINIMAP_BLOC_SIZE 64
-# define SPEED 5
+# define MINIMAP_BLOC_SIZE 16
+# define SPEED 3
 # define PLAYER_SIZE MINIMAP_BLOC_SIZE/3
 # define PI 3.14159265359
 # define N_RAY 1920

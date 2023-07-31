@@ -53,7 +53,7 @@ void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 		else
 			game->side[i] = 1;
 	}
-	else 
+	else
 	{
 		game->dist_ray[i] = fish_eye(game, 1, i, distV);
 		if (game->ray[0][i].angle > PI/2 && game->ray[0][i].angle < 3*PI/2)
