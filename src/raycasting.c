@@ -107,13 +107,17 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 	if (game->ray[0][i].angle < PI) 
 	{
 		game->ray[0][i].r.y = ((int)(game->player.coord.y / MINIMAP_BLOC_SIZE) * MINIMAP_BLOC_SIZE) - 0.0001;
-		h = fabs(game->player.coord.y - game->ray[0][i].r.y);
+		h = (game->player.coord.y - game->ray[0][i].r.y);
+		if (h < 0)
+			h = -h;
 		game->ray[0][i].r.x = game->player.coord.x + (h * artan);
 	}
 	if (game->ray[0][i].angle > PI) 
 	{
 		game->ray[0][i].r.y = ((int)(game->player.coord.y / MINIMAP_BLOC_SIZE) * MINIMAP_BLOC_SIZE) + MINIMAP_BLOC_SIZE;
-		h = fabs(game->ray[0][i].r.y - game->player.coord.y);
+		h = (game->ray[0][i].r.y - game->player.coord.y);
+		if (h < 0)
+			h = -h;
 		game->ray[0][i].r.x = game->player.coord.x - (h * artan);
 	}
 	distance_wall = check_walls(game, i, 0);
@@ -134,13 +138,17 @@ double	calculate_rayon_vertical(t_game *game, int i)
 	if (game->ray[1][i].angle < (PI / 2) || game->ray[1][i].angle > (3 * PI / 2))
 	{
 		game->ray[1][i].r.x = (int)((int)(game->player.coord.x / MINIMAP_BLOC_SIZE) * MINIMAP_BLOC_SIZE) - 0.0001;
-		h = fabs(game->player.coord.x - game->ray[1][i].r.x);
+		h = (game->player.coord.x - game->ray[1][i].r.x);
+		if (h < 0)
+			h = -h;
 		game->ray[1][i].r.y = game->player.coord.y - h * tanf(game->ray[1][i].angle);
 	}
 	if (game->ray[1][i].angle > (PI / 2) && game->ray[1][i].angle < (3 * PI / 2))
 	{
 		game->ray[1][i].r.x = (int)((int)(game->player.coord.x / MINIMAP_BLOC_SIZE) * MINIMAP_BLOC_SIZE) + MINIMAP_BLOC_SIZE;
-		h = fabs(game->player.coord.x - game->ray[1][i].r.x);
+		h = (game->player.coord.x - game->ray[1][i].r.x);
+		if (h < 0)
+			h = -h;
 		game->ray[1][i].r.y = game->player.coord.y + h * tanf(game->ray[1][i].angle);
 	}
 	distance_wall = check_walls(game, i, 1);

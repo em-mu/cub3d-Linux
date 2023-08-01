@@ -12,12 +12,12 @@
 
 #include "cub3d.h"
 
-int	check_block(t_game *game)
-{
-	if (game->dist_ray[N_RAY/2 - 5] < PLAYER_SIZE || game->dist_ray[N_RAY/2 + 5] < PLAYER_SIZE)
-		return (1);
-	return (0);
-}
+// int	check_block(t_game *game)
+// {
+// 	if (game->dist_ray[N_RAY/2 - 5] < PLAYER_SIZE || game->dist_ray[N_RAY/2 + 5] < PLAYER_SIZE)
+// 		return (1);
+// 	return (0);
+// }
 
 static int	collision(t_game *game, float angle)
 {
@@ -32,8 +32,8 @@ static int	collision(t_game *game, float angle)
 	y = (int)(testy) / MINIMAP_BLOC_SIZE;
 	if (game->map[y][x] == '1')
 		return (1);
-	else if (check_block(game) == 1)
-		return (1);
+	// else if (check_block(game) == 1)
+	// 	return (1);
 	return (0);
 }
 

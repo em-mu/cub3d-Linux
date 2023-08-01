@@ -12,14 +12,14 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define DISPLAY_WIDTH 960
-# define DISPLAY_HEIGHT 540
+# define DISPLAY_WIDTH 1920
+# define DISPLAY_HEIGHT 1080
 # define MINIMAP_BLOC_SIZE 16
-# define SPEED 8
+# define SPEED 3
 # define PLAYER_SIZE MINIMAP_BLOC_SIZE/3
 # define PI 3.14159265359
-# define N_RAY 960
-# define DR 0.000545415625 * 2
+# define N_RAY 1920
+# define DR 0.000545415625
 # include "../libft/libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>
@@ -70,6 +70,10 @@ typedef struct s_game
 	t_player	player;
 	mlx_t		*mlx;
 	mlx_image_t	*window;
+	mlx_texture_t *north;
+	mlx_texture_t *west;
+	mlx_texture_t *east;
+	mlx_texture_t *south;
 	char		**map;
 	int			map_width;
 	int			map_height;

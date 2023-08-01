@@ -32,7 +32,7 @@ NAME = 		cub3d
 
 CFLAGS = 	-Wall -Wextra -g3
 
-# CFLAGS += -Werror
+CFLAGS += -Werror
 
 CC = 		gcc
 

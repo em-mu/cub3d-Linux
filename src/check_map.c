@@ -136,6 +136,14 @@ int	check_closed_around_space(char **map)
 	return (0);
 }
 
+void	load_tex(t_game *game)
+{
+	game->north = mlx_load_png(game->tex.north);
+	game->south = mlx_load_png(game->tex.south);
+	game->west = mlx_load_png(game->tex.west);
+	game->east = mlx_load_png(game->tex.east);
+}
+
 int	check_arg_and_map(char **ar, int ac, t_game *game)
 {
 	int			fd;
@@ -150,6 +158,7 @@ int	check_arg_and_map(char **ar, int ac, t_game *game)
 		return (printf("Error \nInvalid map : map does not exist\n"));
 	full_file = read_map(fd);
 	game->tex = read_texture_data(full_file);
+	load_tex(game);
 	game->map = extract_map_from_file(full_file);
 	free_tab(full_file);
 	return (0);
