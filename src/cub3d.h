@@ -12,14 +12,14 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define DISPLAY_WIDTH 1920
+# define DISPLAY_WIDTH 960
 # define DISPLAY_HEIGHT 1080
 # define MINIMAP_BLOC_SIZE 16
 # define SPEED 5
 # define PLAYER_SIZE MINIMAP_BLOC_SIZE/3
 # define PI 3.14159265359
-# define N_RAY 1920
-# define DR 0.000545415625
+# define N_RAY 1920 / 2
+# define DR 0.000545415625 * 2
 # include "../libft/libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>

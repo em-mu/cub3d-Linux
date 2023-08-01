@@ -36,18 +36,17 @@ int    *load_col(t_game *game, int i, char *path)
     col = ft_calloc((int)game->lineH[i], sizeof(int));
     if (game->side[i] == 0 || game->side[i] == 1)
     {
-        if (game->ray[1][i].r.y < 0)
+        if (game->ray[0][i].r.x < 0)
             tmp = game->map_height * 16;
-        tmp = (tmp + (int)game->ray[1][i].r.y) % 16;
-        k = (tmp + (game->ray[1][i].r.y - (int)game->ray[1][i].r.y)) * 4;
-        // printf("%f\n", game->ray[1][i].r.y);
+        tmp = (tmp + (int)game->ray[0][i].r.x) % 16;
+        k = (tmp + (game->ray[0][i].r.x - (int)game->ray[0][i].r.x)) * 4;
     }
     else
     {
-        if (game->ray[0][i].r.x < 0)
+        if (game->ray[1][i].r.y < 0)
             tmp = game->map_width * 16;
-        tmp = (tmp + (int)game->ray[0][i].r.x) % 16;
-        k = (tmp + (game->ray[0][i].r.x - (int)game->ray[0][i].r.x)) * 4;
+        tmp = (tmp + (int)game->ray[1][i].r.y) % 16;
+        k = (tmp + (game->ray[1][i].r.y - (int)game->ray[1][i].r.y)) * 4;
     }
     double offset;
     double ratio;
