@@ -37,28 +37,28 @@ int    *load_col(t_game *game, int i, char *path)
     if (game->side[i] == 0 || game->side[i] == 1)
     {
         if (game->ray[0][i].r.x < 0)
-            tmp = game->map_height * 16;
-        tmp = (tmp + (int)game->ray[0][i].r.x) % 16;
+            tmp = game->map_height * MINIMAP_BLOC_SIZE;
+        tmp = (tmp + (int)game->ray[0][i].r.x) % MINIMAP_BLOC_SIZE;
         k = (tmp + (game->ray[0][i].r.x - (int)game->ray[0][i].r.x)) * 4;
     }
     else
     {
         if (game->ray[1][i].r.y < 0)
-            tmp = game->map_width * 16;
-        tmp = (tmp + (int)game->ray[1][i].r.y) % 16;
+            tmp = game->map_width * MINIMAP_BLOC_SIZE;
+        tmp = (tmp + (int)game->ray[1][i].r.y) % MINIMAP_BLOC_SIZE;
         k = (tmp + (game->ray[1][i].r.y - (int)game->ray[1][i].r.y)) * 4;
     }
     double offset;
     double ratio;
     int test = 0;
-    ratio = 64 / game->lineH[i];
+    ratio = tex->height / game->lineH[i];
     offset = 0;
     while (j < (int)game->lineH[i])
     {
         col[j] = get_rgba(tex->pixels[test + (int)k * 4], tex->pixels[test + (int)k * 4 + 1], tex->pixels[test + (int)k * 4 + 2], tex->pixels[test + (int)k * 4 + 3]);
         j++;
         offset += ratio;
-        test = (int)offset * 256;
+        test = (int)offset * tex->height * 4;
     }
     mlx_delete_texture(tex);
     return (col);
@@ -89,9 +89,7 @@ void    draw_column(t_game *game, int i)
     col = load_col(game, i, path);
     int j = -1;
     while (++j < (int)game->lineH[i])
-    {
         mlx_put_pixel(game->window, i, j + line_o, col[j]);
-    }
     draw_floor_sky(game , i, line_o);
     free(col);
 }
