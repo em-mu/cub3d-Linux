@@ -32,16 +32,17 @@ char	*ft_strdup_new(char *s1, int len)
 {
 	char	*s;
 	int		i;
+	int		j;
 
 	i = 0;
 	s = ft_calloc(sizeof(char), len + 1);
 	if (!s)
 		return (0);
-	while (s1[i])
-	{
-		s[i] = s1[i];
-		i++;
-	}
+	while(i < 8)
+		s[i++] = '1';
+	j = 0;
+	while (s1[j])
+		s[i++] = s1[j++];
 	if (ft_strchr(s1, '\n'))
 		s[--i] = '1';
 	while (i < len)
@@ -82,14 +83,19 @@ char	**extract_map_from_file(char **map_full_file)
 	len_map = find_map_len(i, map_full_file);
 	check_closed_map(i, map_full_file);
 	j = 0;
-	map = ft_calloc(sizeof(char *), len_map + 1);
+	map = ft_calloc(sizeof(char *), len_map + 17);
 	len_line = get_len_max(map_full_file, len_map, i);
+	while (j < 8)
+		map[j++] = ft_strdup_new("", len_line + 16);
 	while (map_full_file[i] && line_empty(map_full_file[i]) != 1)
 	{
-		map[j] = ft_strdup_new(map_full_file[i], len_line);
+		map[j] = ft_strdup_new(map_full_file[i], len_line + 16);
 		i++;
 		j++;
 	}
+	i = 0;
+	while (i++ < 8)
+		map[j++] = ft_strdup_new("", len_line + 16);
 	if (check_closed_around_space(map))
 	{
 		free_tab(map);

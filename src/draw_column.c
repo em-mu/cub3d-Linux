@@ -39,14 +39,14 @@ int    *load_col(t_game *game, int i, char *path)
         if (game->ray[0][i].r.x < 0)
             tmp = game->map_height * MINIMAP_BLOC_SIZE;
         tmp = (tmp + (int)game->ray[0][i].r.x) % MINIMAP_BLOC_SIZE;
-        k = (tmp + (game->ray[0][i].r.x - (int)game->ray[0][i].r.x)) * 4;
+        k = (tmp + (game->ray[0][i].r.x - (int)game->ray[0][i].r.x)) * tex->width / MINIMAP_BLOC_SIZE;
     }
     else
     {
         if (game->ray[1][i].r.y < 0)
             tmp = game->map_width * MINIMAP_BLOC_SIZE;
         tmp = (tmp + (int)game->ray[1][i].r.y) % MINIMAP_BLOC_SIZE;
-        k = (tmp + (game->ray[1][i].r.y - (int)game->ray[1][i].r.y)) * 4;
+        k = (tmp + (game->ray[1][i].r.y - (int)game->ray[1][i].r.y)) * tex->width / MINIMAP_BLOC_SIZE;
     }
     double offset;
     double ratio;
@@ -55,10 +55,10 @@ int    *load_col(t_game *game, int i, char *path)
     offset = 0;
     while (j < (int)game->lineH[i])
     {
-        col[j] = get_rgba(tex->pixels[test + (int)k * 4], tex->pixels[test + (int)k * 4 + 1], tex->pixels[test + (int)k * 4 + 2], tex->pixels[test + (int)k * 4 + 3]);
+        col[j] = get_rgba(tex->pixels[test + (int)k * tex->bytes_per_pixel], tex->pixels[test + (int)k * tex->bytes_per_pixel + 1], tex->pixels[test + (int)k * tex->bytes_per_pixel + 2], tex->pixels[test + (int)k * tex->bytes_per_pixel + 3]);
         j++;
         offset += ratio;
-        test = (int)offset * tex->height * 4;
+        test = (int)offset * tex->height * tex->bytes_per_pixel;
     }
     mlx_delete_texture(tex);
     return (col);
