@@ -18,6 +18,7 @@ void	delete_texture(t_game *game)
 	mlx_delete_texture(game->west);
 	mlx_delete_texture(game->east);
 	mlx_delete_texture(game->south);
+	free_tab(game->map);
 }
 int	open_window(t_game *game)
 {

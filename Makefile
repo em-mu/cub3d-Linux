@@ -30,27 +30,25 @@ OBJS =		$(SRCS:.c=.o)
 
 NAME = 		cub3d
 
-CFLAGS = 	-Wall -Wextra -g3
-
-CFLAGS += -Werror
+CFLAGS = 	-Wall -Wextra -g3 -Werror
 
 CC = 		gcc
 
 INC	= 		-I /MLX42/include
 
-MLX	= 		MLX42/libmlx42.a -lglfw -L "/Users/$$USER/.brew/opt/glfw/lib"
+MLX	= 		MLX42/libmlx42.a -L "/Users/$$USER/.brew/opt/glfw/lib"
 
 LINUX = 	libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
 RM = 		rm -f
 
 .c.o:
-			$(CC) $(CFLAGS) ${LINUX} $(INC) -c $< -o $(<:.c=.o) 
+			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS) libft.a
-			$(CC) $(CFLAGS) $(OBJS) ${LINUX} $(MLX) libft.a -o $(NAME)
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) ${LINUX} $(MLX) libft.a
 
 debug:		$(OBJS) libft.a
 			$(CC) $(CFLAGS) $(OBJS) ${LINUX} $(MLX) libft.a -fsanitize=address -o $(NAME)

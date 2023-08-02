@@ -142,6 +142,10 @@ void	load_tex(t_game *game)
 	game->south = mlx_load_png(game->tex.south);
 	game->west = mlx_load_png(game->tex.west);
 	game->east = mlx_load_png(game->tex.east);
+	free(game->tex.north);
+	free(game->tex.south);
+	free(game->tex.east);
+	free(game->tex.west);
 }
 
 int	check_arg_and_map(char **ar, int ac, t_game *game)
