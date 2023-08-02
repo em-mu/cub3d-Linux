@@ -59,7 +59,6 @@ int    *load_col(t_game *game, int i, mlx_texture_t *tex)
         offset += ratio;
         test = (int)offset * tex->height * tex->bytes_per_pixel;
     }
-    // mlx_delete_texture(tex);
     return (col);
 }
 

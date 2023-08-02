@@ -12,6 +12,13 @@
 
 #include "cub3d.h"
 
+void	delete_texture(t_game *game)
+{
+	mlx_delete_texture(game->north);
+	mlx_delete_texture(game->west);
+	mlx_delete_texture(game->east);
+	mlx_delete_texture(game->south);
+}
 int	open_window(t_game *game)
 {
 	init_player_pos(game);
@@ -22,6 +29,7 @@ int	open_window(t_game *game)
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);
+	delete_texture(game);
 	mlx_terminate(game->mlx);
 	return (EXIT_SUCCESS);
 }
