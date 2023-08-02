@@ -65,8 +65,6 @@ typedef struct s_rayon
 
 typedef struct s_game
 {
-	int		    display_width;
-	int			display_height;
 	t_player	player;
 	mlx_t		*mlx;
 	mlx_image_t	*window;

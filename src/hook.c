@@ -64,14 +64,6 @@ void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 	}
 }
 
-void	resize_hook(int width, int height, void *param)
-{
-	t_game	*game;
-	game = (t_game *)param;
-	game->display_width = width;
-	game->display_height = height;
-}
-
 void	ft_hook(void *param)
 {
 	t_game	*game;
@@ -80,7 +72,7 @@ void	ft_hook(void *param)
 	game = (t_game *)param;
 	update_position(game);
 	mlx_delete_image(game->mlx, game->window);
-	game->window = mlx_new_image(game->mlx, game->display_width, game->display_height);
+	game->window = mlx_new_image(game->mlx, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	int i = 0;
 	while (i < N_RAY)
 	{

@@ -14,16 +14,13 @@
 
 int	open_window(t_game *game)
 {
-	game->display_width = DISPLAY_WIDTH;
-	game->display_height = DISPLAY_HEIGHT;
 	init_player_pos(game);
 	get_map_dimensions(game->map, game);
 	game->mlx = mlx_init(DISPLAY_WIDTH, DISPLAY_HEIGHT, "cub3d", true);
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	game->window = mlx_new_image(game->mlx, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	mlx_image_to_window(game->mlx, game->window, 0, 0);
-	mlx_resize_hook(game->mlx, &resize_hook, game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
-	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (EXIT_SUCCESS);
