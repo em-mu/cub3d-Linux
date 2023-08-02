@@ -50,8 +50,11 @@ int    *load_col(t_game *game, int i, mlx_texture_t *tex)
     double offset;
     double ratio;
     int test = 0;
+    offset = 1;
+    if (game->lineH[i] > DISPLAY_HEIGHT)
+        offset = (game->lineH[i] - DISPLAY_HEIGHT) / 2;
     ratio = tex->height / game->lineH[i];
-    offset = 0;
+    offset *= ratio;
     while (j < (int)game->lineH[i])
     {
         col[j] = get_rgba(tex->pixels[test + (int)k * tex->bytes_per_pixel], tex->pixels[test + (int)k * tex->bytes_per_pixel + 1], tex->pixels[test + (int)k * tex->bytes_per_pixel + 2], tex->pixels[test + (int)k * tex->bytes_per_pixel + 3]);
@@ -69,23 +72,25 @@ void    draw_column(t_game *game, int i)
     
     game->lineH[i] = DISPLAY_HEIGHT * MINIMAP_BLOC_SIZE / game->dist_ray[i];
     line_o = (game->lineH[i] - DISPLAY_HEIGHT) / 2 ;
-    if (line_o < 0)
-        line_o = -line_o;
+
+    if (game->side[i] == 0)
+        col = load_col(game, i, game->north);
+	else if (game->side[i] == 1)
+        col = load_col(game, i, game->south);
+	else if (game->side[i] == 2)
+        col = load_col(game, i, game->east);
+	else if (game->side[i] == 3)
+        col = load_col(game, i, game->west);
     if (game->lineH[i] > DISPLAY_HEIGHT)
 		game->lineH[i] = DISPLAY_HEIGHT;
-	if (game->lineH[i] + line_o > DISPLAY_HEIGHT)
+    if (line_o < 0)
+        line_o = -line_o;
+    if (game->lineH[i] + line_o > DISPLAY_HEIGHT)
 		line_o = 0;
-	if (game->side[i] == 0)
-        col = load_col(game, i, game->north);
-	if (game->side[i] == 1)
-        col = load_col(game, i, game->south);
-	if (game->side[i] == 2)
-        col = load_col(game, i, game->east);
-	if (game->side[i] == 3)
-        col = load_col(game, i, game->west);
     int j = -1;
     while (++j < (int)game->lineH[i])
         mlx_put_pixel(game->window, i, j + line_o, col[j]);
     draw_floor_sky(game , i, line_o);
     free(col);
+    col = NULL;
 }
