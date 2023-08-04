@@ -3,90 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   mouvement.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuller <emuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:47:33 by emuller           #+#    #+#             */
-/*   Updated: 2023/07/10 18:36:11 by emuller          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:39:11 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int	check_block(t_game *game)
-// {
-// 	if (game->dist_ray[N_RAY/2 - 5] < PLAYER_SIZE || game->dist_ray[N_RAY/2 + 5] < PLAYER_SIZE)
-// 		return (1);
-// 	return (0);
-// }
-
-static int	collision(t_game *game, float angle)
+int	collision(t_game *game, float angle)
 {
-	int x;
-	int y;
-	float testx;
-	float testy;
+	int		x;
+	int		y;
+	float	testx;
+	float	testy;
 
 	testx = game->player.coord.x + cos(game->player.angle + angle) * SPEED;
 	testy = game->player.coord.y + sin(game->player.angle + angle) * SPEED;
-	x = (int)(testx) / MINIMAP_BLOC_SIZE;
-	y = (int)(testy) / MINIMAP_BLOC_SIZE;
-	if (game->map[y][x] == '1')
+	x = (int)(testx) / B_S;
+	y = (int)(testy) / B_S;
+	if (game->map[y][x] == '1')// || ( game->map[(int)game->player.coord.y/B_S][x] == '1' && game->map[y][(int)game->player.coord.x/B_S] == '1'))
 		return (1);
-	// else if (check_block(game) == 1)
-	// 	return (1);
 	return (0);
 }
 
 float	adjust_angle(float angle)
 {
-	if(angle < 0)
+	if (angle < 0)
 		angle += 2 * PI;
-	if(angle > 2 * PI)
+	if (angle > 2 * PI)
 		angle -= 2 * PI;
-	return angle;
+	return (angle);
 }
 
-static void	check_angle(t_game *game)
+void	check_angle(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	if(game->player.angle < 0)
+	if (game->player.angle < 0)
 		game->player.angle += 2 * PI;
-	if(game->player.angle > 2 * PI)
+	if (game->player.angle > 2 * PI)
 		game->player.angle -= 2 * PI;
-	while(++i < 60)
+	while (++i < 60)
 	{
-		if(game->ray[0][i].angle < 0)
+		if (game->ray[0][i].angle < 0)
 			game->ray[0][i].angle += 2 * PI;
-		if(game->ray[0][i].angle > 2 * PI)
+		if (game->ray[0][i].angle > 2 * PI)
 			game->ray[0][i].angle -= 2 * PI;
-		if(game->ray[1][i].angle < 0)
+		if (game->ray[1][i].angle < 0)
 			game->ray[1][i].angle += 2 * PI;
-		if(game->ray[1][i].angle > 2 * PI)
+		if (game->ray[1][i].angle > 2 * PI)
 			game->ray[1][i].angle -= 2 * PI;
-	}
-}
-
-void	ft_key_right(t_game *game)
-{
-	game->player.angle += 0.1;
-	check_angle(game);
-}
-
-void	ft_key_left(t_game *game)
-{
-	game->player.angle -= 0.1;
-	check_angle(game);
-}
-
-void move_point(t_game *game, float angle)
-{
-	if (!collision(game, angle))
-	{
-		game->pdx = cos(game->player.angle + angle);
-		game->pdy = sin(game->player.angle + angle);
-		game->player.coord.x += game->pdx * SPEED;
-		game->player.coord.y += game->pdy * SPEED;
 	}
 }

@@ -45,7 +45,7 @@ char	*ft_read_save(int fd, char *tmp)
 		}
 		tmp = ft_strjoin2(tmp, buf);
 		free(buf);
-	}	
+	}
 	return (tmp);
 }
 
@@ -71,11 +71,11 @@ char	*ft_get_line(char *tmp)
 	return (result);
 }
 
-char	*ft_after_nl(char	*tmp)
+char	*ft_after_nl(char *tmp)
 {
-	size_t		i;
-	size_t		j;
-	char		*new_tmp;
+	size_t	i;
+	size_t	j;
+	char	*new_tmp;
 
 	i = 0;
 	while (tmp[i] && tmp[i] != '\n')

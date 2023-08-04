@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuller <emuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 16:51:19 by chabrune          #+#    #+#             */
-/*   Updated: 2023/07/05 16:10:57 by emuller          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:19:05 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	init_player_pos(t_game *game)
 		while (game->map[i][++j])
 		{
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'E'
-					|| game->map[i][j] == 'W' || game->map[i][j] == 'S')
+				|| game->map[i][j] == 'W' || game->map[i][j] == 'S')
 			{
-				game->player.coord.x = j * MINIMAP_BLOC_SIZE;
-				game->player.coord.y = i * MINIMAP_BLOC_SIZE;
+				game->player.coord.x = j * B_S;
+				game->player.coord.y = i * B_S;
 			}
 		}
 	}
@@ -46,13 +46,13 @@ void	init_player_direction(t_game *game)
 		while (game->map[i][++j])
 		{
 			if (game->map[i][j] == 'N')
-				game->player.angle = PI/2;
+				game->player.angle = PI / 2;
 			else if (game->map[i][j] == 'E')
 				game->player.angle = PI;
 			else if (game->map[i][j] == 'W')
 				game->player.angle = 0;
 			else if (game->map[i][j] == 'S')
-				game->player.angle = 3 * PI/2;
+				game->player.angle = 3 * PI / 2;
 		}
 	}
 }

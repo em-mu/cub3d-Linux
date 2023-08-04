@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
+/*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:52:52 by emuller           #+#    #+#             */
-/*   Updated: 2023/07/02 16:25:54 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:07:22 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,76 +94,13 @@ int	check_around(char **map, int i, size_t j)
 		&& map[i][j - 1] != '\n')
 		return (-1);
 	else if (map[i][j + 1] && map[i][j + 1] != '1' && map[i][j + 1] != ' '
-		&& map[i][j + 1] != '\n')
+			&& map[i][j + 1] != '\n')
 		return (-1);
-	else if (map[i + 1] && j <= ft_strlen(map[i + 1])
-		&& map[i + 1][j] != '1' && map[i + 1][j] != ' '
-		&& map[i + 1][j] != '\n')
+	else if (map[i + 1] && j <= ft_strlen(map[i + 1]) && map[i + 1][j] != '1'
+			&& map[i + 1][j] != ' ' && map[i + 1][j] != '\n')
 		return (-1);
-	else if (i > 1 && map[i - 1]
-		&& j <= ft_strlen(map[i - 1])
-		&& map[i - 1][j] != '1' && map[i - 1][j] != ' '
-		&& map[i - 1][j] != '\n')
+	else if (i > 1 && map[i - 1] && j <= ft_strlen(map[i - 1]) && map[i
+			- 1][j] != '1' && map[i - 1][j] != ' ' && map[i - 1][j] != '\n')
 		return (-1);
-	return (0);
-}
-
-int	check_closed_around_space(char **map)
-{
-	int		i;
-	int		count;
-	size_t	j;
-
-	i = 0;
-	count = 0;
-	while (map[i])
-	{
-		j = 1;
-		while (map[i][j] && map[i][j + 1])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'E' || map[i][j] == 'W'
-				|| map[i][j] == 'S')
-				count++;
-			if (map[i][j] == ' ')
-				if (check_around(map, i, j) == -1)
-					return (printf("Error \nInvalid map: map not closed\n"));
-			j++;
-		}
-		i++;
-	}
-	if (count == 0 || count > 1)
-		return (printf("Error \nInvalid map: wrong player number\n"));
-	return (0);
-}
-
-void	load_tex(t_game *game)
-{
-	game->north = mlx_load_png(game->tex.north);
-	game->south = mlx_load_png(game->tex.south);
-	game->west = mlx_load_png(game->tex.west);
-	game->east = mlx_load_png(game->tex.east);
-	free(game->tex.north);
-	free(game->tex.south);
-	free(game->tex.east);
-	free(game->tex.west);
-}
-
-int	check_arg_and_map(char **ar, int ac, t_game *game)
-{
-	int			fd;
-	char		**full_file;
-
-	if (ac != 2)
-		return (write_wrong_num_ar(ac));
-	if (check_map_format(ar[1]) == -1)
-		return (1);
-	fd = open(ar[1], O_RDWR);
-	if (fd == -1)
-		return (printf("Error \nInvalid map : map does not exist\n"));
-	full_file = read_map(fd);
-	game->tex = read_texture_data(full_file);
-	load_tex(game);
-	game->map = extract_map_from_file(full_file);
-	free_tab(full_file);
 	return (0);
 }

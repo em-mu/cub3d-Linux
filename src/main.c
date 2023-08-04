@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuller <emuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:52:47 by emuller           #+#    #+#             */
-/*   Updated: 2023/07/11 15:46:03 by emuller          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:45:36 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	delete_texture(t_game *game)
 {
-	mlx_delete_texture(game->north);
-	mlx_delete_texture(game->west);
-	mlx_delete_texture(game->east);
-	mlx_delete_texture(game->south);
-	free_tab(game->map);
+	(void)game;
+	// mlx_delete_texture(game->north);
+	// mlx_delete_texture(game->west);
+	// mlx_delete_texture(game->east);
+	// mlx_delete_texture(game->south);
+	// free_tab(game->map);
 }
+
 int	open_window(t_game *game)
 {
 	init_player_pos(game);
@@ -37,7 +39,8 @@ int	open_window(t_game *game)
 
 void	init_game(t_game *game)
 {
-	int i;
+	int	i;
+
 	game->map = NULL;
 	game->mlx = NULL;
 	game->window = NULL;

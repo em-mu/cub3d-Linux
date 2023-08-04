@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
+/*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:57:31 by emuller           #+#    #+#             */
-/*   Updated: 2023/07/02 16:25:53 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:23:55 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,21 @@ int	is_valid_char(char c)
 	return (0);
 }
 
-void get_map_dimensions(char **map, t_game *game)
+void	get_map_dimensions(char **map, t_game *game)
 {
-	int i;
-	int line_length;
+	int	i;
+	int	line_length;
 
 	game->map_width = 0;
 	i = -1;
 	line_length = 0;
-    while (map[++i])
-    {
-        line_length = ft_strlen(map[i]);
-        if (line_length > game->map_width)
-            game->map_width = line_length;
-        (game->map_height)++;
-    }
+	while (map[++i])
+	{
+		line_length = ft_strlen(map[i]);
+		if (line_length > game->map_width)
+			game->map_width = line_length;
+		(game->map_height)++;
+	}
 }
 
 char	**dup_tab(char **tab)

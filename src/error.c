@@ -21,7 +21,7 @@ int	write_wrong_num_ar(int ar)
 	return (1);
 }
 
-void	exit_error(char	**map, char *msg)
+void	exit_error(char **map, char *msg)
 {
 	if (msg)
 		printf("Error \n%s\n", msg);
