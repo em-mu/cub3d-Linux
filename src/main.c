@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:52:47 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 17:45:36 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:56:44 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	delete_texture(t_game *game)
 {
-	(void)game;
-	// mlx_delete_texture(game->north);
-	// mlx_delete_texture(game->west);
-	// mlx_delete_texture(game->east);
-	// mlx_delete_texture(game->south);
-	// free_tab(game->map);
+	mlx_delete_texture(game->north);
+	mlx_delete_texture(game->west);
+	mlx_delete_texture(game->east);
+	mlx_delete_texture(game->south);
+	free_tab(game->map);
 }
 
 int	open_window(t_game *game)

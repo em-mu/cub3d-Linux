@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:53:38 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 17:19:05 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:43:58 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_game
 	double			dist_ray[N_RAY];
 	double			line_h[N_RAY];
 	int				side[N_RAY];
+	double			ratio;
 }					t_game;
 
 //utils

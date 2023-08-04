@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:19:12 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 18:01:48 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:48:02 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 int	*fill_colunm_color(t_game *game, mlx_texture_t *tex, int i, int k)
 {
 	double	offset;
-	double	ratio;
 	int		*col;
 	int		test;
 	int		j;
+	int		index;
 
 	test = 0;
 	offset = 1;
-	j = 0;
+	j = -1;
 	col = ft_calloc((int)game->line_h[i], sizeof(int));
 	if (game->line_h[i] > DISPLAY_HEIGHT)
 		offset = (game->line_h[i] - DISPLAY_HEIGHT) / 2;
-	ratio = tex->height / game->line_h[i];
-	offset *= ratio;
-	while (j < (int)game->line_h[i])
+	game->ratio = tex->height / game->line_h[i];
+	offset *= game->ratio;
+	while (++j < (int)game->line_h[i])
 	{
-		col[j] = get_rgba(tex->pixels[test + (int)k * tex->bytes_per_pixel],
-				tex->pixels[test + (int)k * tex->bytes_per_pixel + 1],
-				tex->pixels[test + (int)k * tex->bytes_per_pixel + 2],
-				tex->pixels[test + (int)k * tex->bytes_per_pixel + 3]);
-		j++;
-		offset += ratio;
-		test = (int)offset * tex->height * tex->bytes_per_pixel;
+		index = test + (int)k * 4;
+		if (index >= 0 && index + 3 < (int)tex->height * (int)tex->width * \
+			tex->bytes_per_pixel)
+			col[j] = get_rgba(tex->pixels[index], tex->pixels[index + 1],
+					tex->pixels[index + 2], tex->pixels[index + 3]);
+		offset += game->ratio;
+		test = (int)offset * tex->height * 4;
 	}
 	return (col);
 }
@@ -51,7 +51,7 @@ int	*load_col(t_game *game, int i, mlx_texture_t *tex)
 	else
 		k = calculate_step(game, tex, game->ray[1][i].r.y);
 	if (game->side[i] == 0 || game->side[i] == 3)
-		k = tex->width - 1 - k;
+		k = tex->width - k;
 	col = fill_colunm_color(game, tex, i, k);
 	return (col);
 }

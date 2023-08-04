@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:47:33 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 17:53:23 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:01:34 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	load_tex(t_game *game)
 	game->south = mlx_load_png(game->tex.south);
 	game->west = mlx_load_png(game->tex.west);
 	game->east = mlx_load_png(game->tex.east);
+	free(game->tex.north);
+	free(game->tex.south);
+	free(game->tex.west);
+	free(game->tex.east);
 	if (!game->north || !game->south || !game->west || !game->east)
 	{
 		printf("Error \nInvalid texture\n");
 		exit(EXIT_FAILURE);
 	}
-	free(game->tex.north);
-	free(game->tex.south);
-	free(game->tex.east);
-	free(game->tex.west);
 }
 
 int	check_arg_and_map(char **ar, int ac, t_game *game)
