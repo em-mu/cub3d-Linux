@@ -70,6 +70,13 @@ void	fill_spaces(char ***map)
 	}
 }
 
+static void	free_and_exit(char **map, char **map_full_file)
+{
+	free_tab(map);
+	free_tab(map_full_file);
+	exit(1);
+}
+
 char	**extract_map_from_file(char **map_full_file)
 {
 	char	**map;
@@ -89,20 +96,12 @@ char	**extract_map_from_file(char **map_full_file)
 	while (j < 8)
 		map[j++] = ft_strdup_new("", len_line + 16);
 	while (map_full_file[i] && line_empty(map_full_file[i]) != 1)
-	{
-		map[j] = ft_strdup_new(map_full_file[i], len_line + 16);
-		i++;
-		j++;
-	}
+		map[j++] = ft_strdup_new(map_full_file[i++], len_line + 16);
 	i = 0;
 	while (i++ < 8)
 		map[j++] = ft_strdup_new("", len_line + 16);
 	if (check_closed_around_space(map))
-	{
-		free_tab(map);
-		free_tab(map_full_file);
-		exit(1);
-	}
+		free_and_exit(map, map_full_file);
 	fill_spaces(&map);
 	return (map);
 }

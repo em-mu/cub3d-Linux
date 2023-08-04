@@ -30,8 +30,8 @@ void	put_player_pixel(t_game *game)
 				color = get_rgba(255, 0, 0, 255);
 				put_pixel_player(game, (game->player.coord.x
 						- (game->player.coord.x) + (8 * B_S)) / 2,
-						(game->player.coord.y - (game->player.coord.y) + (8
-						* B_S)) / 2, color);
+					(game->player.coord.y - (game->player.coord.y)
+						+ (8 * B_S)) / 2, color);
 				put_pixel_ray(game, color);
 			}
 			j++;
@@ -66,7 +66,7 @@ void	put_pixel_ray(t_game *game, int color)
 		game->rdx += -cosf(game->player.angle);
 		game->rdy += -sinf(game->player.angle);
 		mlx_put_pixel(game->window, (game->rdx - (game->player.coord.x) + (8
-				* B_S)) / 2, (game->rdy - (game->player.coord.y) + (8
-				* B_S)) / 2, color);
+					* B_S)) / 2, (game->rdy - (game->player.coord.y) + (8
+					* B_S)) / 2, color);
 	}
 }

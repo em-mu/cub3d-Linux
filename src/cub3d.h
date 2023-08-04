@@ -16,7 +16,7 @@
 # define DISPLAY_HEIGHT 1080
 # define B_S 16
 # define SPEED 3
-# define PLAYER_SIZE B_S / 3
+# define PLAYER_SIZE 4
 # define PI 3.14159265359
 # define N_RAY 1920
 # define DR 0.000545415625
@@ -82,7 +82,7 @@ typedef struct s_game
 	float			rdy;
 	t_rayon			ray[2][N_RAY];
 	double			dist_ray[N_RAY];
-	double			lineH[N_RAY];
+	double			line_h[N_RAY];
 	int				side[N_RAY];
 }					t_game;
 
@@ -125,18 +125,14 @@ void				ft_key_left(t_game *game);
 void				ft_key_right(t_game *game);
 void				move_point(t_game *game, float angle);
 
-// Pixel
-int					put_pixel(t_game *game, uint32_t x, uint32_t y, int color);
-void				put_map_pixel(t_game *game);
-
 // Player
 void				init_player_pos(t_game *game);
 void				init_player_direction(t_game *game);
-void				print_map(char **map);
 void				put_player_pixel(t_game *game);
 void				put_pixel_player(t_game *game, uint32_t x, uint32_t y,
 						int color);
 void				put_pixel_ray(t_game *game, int color);
+void				put_map_pixel(t_game *game);
 
 // Raycasting
 double				calculate_rayon_horizontal(t_game *game, int i);
@@ -144,9 +140,15 @@ double				calculate_rayon_vertical(t_game *game, int i);
 int					coll_ray(t_game *game, int i, int j);
 void				find_shortest_ray(t_game *game, int i, double distH,
 						double distV);
-void				draw_column(t_game *game, int i);
-void				resize_hook(int width, int height, void *param);
 int					collision(t_game *game, float angle);
 void				check_angle(t_game *game);
+float				check_walls(t_game *game, int i, int side);
+
+// Draw
+void				draw_column(t_game *game, int i);
+int					*load_col(t_game *game, int i, mlx_texture_t *tex);
+void				draw_floor_sky(t_game *game, int i, int line_o);
+float				calculate_step(t_game *game, mlx_texture_t *tex,
+						double ray);
 
 #endif

@@ -12,18 +12,24 @@
 
 SRCS = 	src/main.c \
 		src/check_map.c \
+		src/check_map2.c \
 		src/get_next_line.c \
 		src/get_next_line_utils.c \
 		src/read_map.c \
 		src/error.c \
 		src/utils.c \
 		src/parsing.c \
+		src/parsing2.c \
 		src/pixel.c \
+		src/pixel2.c \
 		src/hook.c \
 		src/player.c \
 		src/mouvement.c \
+		src/mouvement2.c \
 		src/raycasting.c \
+		src/raycasting2.c \
 		src/draw_column.c \
+		src/draw_column2.c \
 
 
 OBJS =		$(SRCS:.c=.o)

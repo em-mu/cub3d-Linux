@@ -46,8 +46,8 @@ void	load_tex(t_game *game)
 	game->south = mlx_load_png(game->tex.south);
 	game->west = mlx_load_png(game->tex.west);
 	game->east = mlx_load_png(game->tex.east);
-    if (!game->north || !game->south || !game->west || !game->east)
-    {
+	if (!game->north || !game->south || !game->west || !game->east)
+	{
 		printf("Error \nInvalid texture\n");
 		exit(EXIT_FAILURE);
 	}

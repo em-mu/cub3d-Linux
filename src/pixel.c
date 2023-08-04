@@ -28,7 +28,7 @@ void	put_pixel_map(t_game *game, uint32_t x, uint32_t y, int color)
 		j = -1;
 		while (++j < B_S / 2)
 			mlx_put_pixel(game->window, x + i - B_S / 4, y + j - B_S / 4,
-					color);
+				color);
 	}
 }
 
@@ -52,9 +52,13 @@ void	put_map_pixel(t_game *game)
 {
 	uint32_t	i;
 	uint32_t	j;
+	uint32_t	px;
+	uint32_t	py;
 	int			color;
 
 	put_map_background(game);
+	px = (uint32_t)(game->player.coord.x / B_S) * B_S;
+	py = (uint32_t)(game->player.coord.y / B_S) * B_S;
 	i = -1;
 	while (game->map[++i])
 	{
@@ -65,19 +69,10 @@ void	put_map_pixel(t_game *game)
 				color = get_rgba(90, 140, 240, 255);
 			else if (game->map[i][j] == '0')
 				color = get_rgba(190, 200, 255, 255);
-			if ((j * B_S > (uint32_t)(game->player.coord.x / B_S) * B_S - 8
-					* B_S) && (j * B_S < (uint32_t)(game->player.coord.x / B_S)
-					* B_S + 8 * B_S) && (i
-					* B_S > (uint32_t)(game->player.coord.y / B_S) * B_S - 8
-					* B_S) && (i * B_S < (uint32_t)(game->player.coord.y / B_S)
-					* B_S + 8 * B_S))
-			{
-				put_pixel_map(game, ((j * B_S)
-							- ((uint32_t)(game->player.coord.x / B_S) * B_S)
-							+ (8 * B_S)) / 2, ((i * B_S)
-							- ((uint32_t)(game->player.coord.y / B_S) * B_S)
-							+ (8 * B_S)) / 2, color);
-			}
+			if ((j * B_S > px - 8 * B_S) && (j * B_S < px + 8 * B_S)
+				&& (i * B_S > py - 8 * B_S) && (i * B_S < py + 8 * B_S))
+				put_pixel_map(game, ((j * B_S) - (px) + (8 * B_S)) / 2,
+					((i * B_S) - (py) + (8 * B_S)) / 2, color);
 		}
 	}
 }

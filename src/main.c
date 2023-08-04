@@ -52,7 +52,7 @@ void	init_game(t_game *game)
 	while (++i < N_RAY)
 	{
 		game->dist_ray[i] = 0;
-		game->lineH[i] = 0;
+		game->line_h[i] = 0;
 		game->side[i] = 0;
 	}
 }
