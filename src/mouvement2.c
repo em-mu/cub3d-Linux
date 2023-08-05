@@ -24,9 +24,9 @@ void	ft_key_left(t_game *game)
 	check_angle(game);
 }
 
-void	move_point(t_game *game, float angle)
+void	move_point(t_game *game, float angle, int dir)
 {
-	if (!collision(game, angle))
+	if (!collision(game, angle, dir))
 	{
 		game->pdx = cos(game->player.angle + angle);
 		game->pdy = sin(game->player.angle + angle);

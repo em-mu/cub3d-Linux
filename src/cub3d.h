@@ -124,7 +124,7 @@ void				ft_hook(void *param);
 void				update_position(t_game *game);
 void				ft_key_left(t_game *game);
 void				ft_key_right(t_game *game);
-void				move_point(t_game *game, float angle);
+void				move_point(t_game *game, float angle, int dir);
 
 // Player
 void				init_player_pos(t_game *game);
@@ -141,7 +141,7 @@ double				calculate_rayon_vertical(t_game *game, int i);
 int					coll_ray(t_game *game, int i, int j);
 void				find_shortest_ray(t_game *game, int i, double distH,
 						double distV);
-int					collision(t_game *game, float angle);
+int					collision(t_game *game, float angle, int dir);
 void				check_angle(t_game *game);
 float				check_walls(t_game *game, int i, int side);
 

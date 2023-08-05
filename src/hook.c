@@ -22,14 +22,14 @@ void	update_position(t_game *game)
 		ft_key_left(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx,
 			MLX_KEY_UP))
-		move_point(game, PI);
+		move_point(game, PI, 0);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx,
 			MLX_KEY_DOWN))
-		move_point(game, 0);
+		move_point(game, 0, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_point(game, (PI / 2));
+		move_point(game, (PI / 2), 2);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_point(game, (3 * PI / 2));
+		move_point(game, (3 * PI / 2), 3);
 }
 
 double	fish_eye(t_game *game, int k, int i, float dist)
