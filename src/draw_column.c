@@ -31,8 +31,8 @@ int	*fill_colunm_color(t_game *game, mlx_texture_t *tex, int i, int k)
 	while (++j < (int)game->line_h[i])
 	{
 		index = test + (int)k * 4;
-		if (index >= 0 && index + 3 < (int)tex->height * (int)tex->width * \
-			tex->bytes_per_pixel)
+		if (index >= 0 && index + 3 < (int)tex->height * (int)tex->width
+			* tex->bytes_per_pixel)
 			col[j] = get_rgba(tex->pixels[index], tex->pixels[index + 1],
 					tex->pixels[index + 2], tex->pixels[index + 3]);
 		offset += game->ratio;

@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 16:29:02 by chabrune          #+#    #+#             */
-/*   Updated: 2023/08/02 17:25:34 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:58:07 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	put_player_pixel(t_game *game)
 				color = get_rgba(255, 0, 0, 255);
 				put_pixel_player(game, (game->player.coord.x
 						- (game->player.coord.x) + (8 * B_S)) / 2,
-					(game->player.coord.y - (game->player.coord.y)
-						+ (8 * B_S)) / 2, color);
+					(game->player.coord.y - (game->player.coord.y) + (8
+							* B_S)) / 2, color);
 				put_pixel_ray(game, color);
 			}
 			j++;

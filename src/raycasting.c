@@ -81,8 +81,8 @@ double	calculate_rayon_vertical(t_game *game, int i)
 		h = (game->player.coord.x - game->ray[1][i].r.x);
 		if (h < 0)
 			h = -h;
-		game->ray[1][i].r.y = game->player.coord.y
-			- h * tanf(game->ray[1][i].angle);
+		game->ray[1][i].r.y = game->player.coord.y - h
+			* tanf(game->ray[1][i].angle);
 	}
 	if (game->ray[1][i].angle > (PI / 2) && game->ray[1][i].angle < 3 * PI / 2)
 	{

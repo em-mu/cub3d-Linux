@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 16:29:02 by chabrune          #+#    #+#             */
-/*   Updated: 2023/08/02 17:21:20 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:58:33 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	put_map_pixel(t_game *game)
 				color = get_rgba(90, 140, 240, 255);
 			else if (game->map[i][j] == '0')
 				color = get_rgba(190, 200, 255, 255);
-			if ((j * B_S > px - 8 * B_S) && (j * B_S < px + 8 * B_S)
-				&& (i * B_S > py - 8 * B_S) && (i * B_S < py + 8 * B_S))
-				put_pixel_map(game, ((j * B_S) - (px) + (8 * B_S)) / 2,
-					((i * B_S) - (py) + (8 * B_S)) / 2, color);
+			if ((j * B_S > px - 8 * B_S) && (j * B_S < px + 8 * B_S) && (i
+					* B_S > py - 8 * B_S) && (i * B_S < py + 8 * B_S))
+				put_pixel_map(game, ((j * B_S) - (px) + (8 * B_S)) / 2, ((i
+							* B_S) - (py) + (8 * B_S)) / 2, color);
 		}
 	}
 }

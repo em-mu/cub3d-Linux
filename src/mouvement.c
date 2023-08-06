@@ -23,7 +23,9 @@ int	collision(t_game *game, float angle, int dir)
 	testy = game->player.coord.y + sin(game->player.angle + angle) * SPEED;
 	x = (int)(testx) / B_S;
 	y = (int)(testy) / B_S;
-	if ((game->map[y][x] == '1') || ( game->map[(int)game->player.coord.y/B_S][x] == '1' && game->map[y][(int)game->player.coord.x/B_S] == '1' && dir == 0))
+	if ((game->map[y][x] == '1') || (game->map[(int)game->player.coord.y
+			/ B_S][x] == '1' && game->map[y][(int)game->player.coord.x
+			/ B_S] == '1' && dir == 0))
 		return (1);
 	return (0);
 }
