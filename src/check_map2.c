@@ -40,6 +40,13 @@ int	check_closed_around_space(char **map)
 	return (0);
 }
 
+int check_text(mlx_texture_t *tex)
+{
+	if (tex->height != tex->width)
+		return (1);
+	return (0);
+}
+
 void	load_tex(t_game *game)
 {
 	game->north = mlx_load_png(game->tex.north);
@@ -50,7 +57,9 @@ void	load_tex(t_game *game)
 	free(game->tex.south);
 	free(game->tex.west);
 	free(game->tex.east);
-	if (!game->north || !game->south || !game->west || !game->east)
+	if (!game->north || !game->south || !game->west || !game->east 
+		|| check_text(game->north) || check_text(game->south) 
+		|| check_text(game->east) || check_text(game->west))
 	{
 		printf("Error \nInvalid texture\n");
 		exit(EXIT_FAILURE);
