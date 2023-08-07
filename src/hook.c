@@ -41,13 +41,14 @@ double	fish_eye(t_game *game, int k, int i, float dist)
 		ca += 2 * PI;
 	if (ca > 2 * PI)
 		ca -= 2 * PI;
-	dist = dist * cos(ca);
+	dist = dist; // * cos(ca);
 	return (dist);
 }
 
 void	find_shortest_ray(t_game *game, int i, double distH, double distV)
 {
-	if (distH < distV)
+	
+	if (distH <= distV)
 	{
 		game->dist_ray[i] = fish_eye(game, 0, i, distH);
 		if (game->ray[0][i].angle > PI)

@@ -12,32 +12,24 @@
 
 #include "cub3d.h"
 
-static int	init_ray_horizontal(t_game *game, int i)
+static void	init_ray_horizontal(t_game *game, int i)
 {
-	int	distance_wall;
-
-	distance_wall = 100000000;
 	game->ray[0][i].angle = game->player.angle - (N_RAY / 2 * DR - (i * DR));
 	game->ray[0][i].angle = adjust_angle(game->ray[0][i].angle);
 	game->ray[0][i].r.x = game->player.coord.x;
 	game->ray[0][i].r.y = game->player.coord.y;
 	game->ray[0][i].o.y = B_S;
 	game->ray[0][i].o.x = B_S / tanf(game->ray[0][i].angle);
-	return (distance_wall);
 }
 
-static int	init_ray_vertical(t_game *game, int i)
+static void	init_ray_vertical(t_game *game, int i)
 {
-	int	distance_wall;
-
-	distance_wall = 100000000;
 	game->ray[1][i].angle = game->player.angle - (N_RAY / 2 * DR - (i * DR));
 	game->ray[1][i].angle = adjust_angle(game->ray[1][i].angle);
 	game->ray[1][i].r.x = game->player.coord.x;
 	game->ray[1][i].r.y = game->player.coord.y;
 	game->ray[1][i].o.x = B_S;
 	game->ray[1][i].o.y = B_S * tanf(game->ray[1][i].angle);
-	return (distance_wall);
 }
 
 double	calculate_rayon_horizontal(t_game *game, int i)
@@ -46,7 +38,7 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 	double	distance_wall;
 	double	artan;
 
-	distance_wall = init_ray_horizontal(game, i);
+	init_ray_horizontal(game, i);
 	artan = -1 / tanf(game->ray[0][i].angle);
 	if (game->ray[0][i].angle < PI)
 	{
@@ -64,6 +56,11 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 			h = -h;
 		game->ray[0][i].r.x = game->player.coord.x - (h * artan);
 	}
+	if (game->ray[0][i].angle == 0 || game->ray[0][i].angle == PI)
+	{
+		game->ray[0][i].r.x = game->player.coord.x;
+		game->ray[0][i].r.y = game->player.coord.y;
+	}
 	distance_wall = check_walls(game, i, 0);
 	return (distance_wall);
 }
@@ -73,7 +70,7 @@ double	calculate_rayon_vertical(t_game *game, int i)
 	float	h;
 	double	distance_wall;
 
-	distance_wall = init_ray_vertical(game, i);
+	init_ray_vertical(game, i);
 	if (game->ray[1][i].angle < (PI / 2) || game->ray[1][i].angle > 3 * PI / 2)
 	{
 		game->ray[1][i].r.x = ((int)(game->player.coord.x / B_S) * B_S)
