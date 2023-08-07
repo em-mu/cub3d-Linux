@@ -28,7 +28,7 @@ int	coll_ray(t_game *game, int i, int j)
 		if (game->map[(int)y][(int)x] == '1')
 			return (1);
 	}
-	else 
+	else
 		return (-1);
 	return (0);
 }

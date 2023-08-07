@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:59:55 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 17:33:46 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:26:25 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_texture	read_texture_data(char **file)
 	i = -1;
 	while (file[++i] && find_beginning_map(file[i]) == 0)
 		file_tex_only[i] = ft_strdup(file[i]);
-	check_tex_num(file_tex_only);
-	fill_tex_data(&tex, file_tex_only);
+	check_tex_num(file_tex_only, file);
+	fill_tex_data(&tex, file_tex_only, file);
 	free_tab(file_tex_only);
 	return (tex);
 }
 
-void	check_tex_num(char **file)
+void	check_tex_num(char **file, char **fullfile)
 {
 	int	i;
 	int	count;
@@ -46,6 +46,8 @@ void	check_tex_num(char **file)
 	}
 	if (count != 6)
 	{
+		free_tab(fullfile);
+		free_tab(file);
 		printf("Error \nInvalid texture: wrong number of textures\n");
 		exit(1);
 	}
@@ -73,7 +75,7 @@ void	fill_color(int *tex, char **str)
 	free_tab(rgb);
 }
 
-void	fill_tex_data_2(t_texture *tex, char **tmp)
+void	fill_tex_data_2(t_texture *tex, char **tmp, char **fullfile)
 {
 	if (!ft_strncmp(tmp[0], "NO", 2) && !tmp[0][2] && !tmp[2])
 		tex->north = ft_strdup(tmp[1]);
@@ -91,11 +93,12 @@ void	fill_tex_data_2(t_texture *tex, char **tmp)
 	{
 		printf("Error \nInvalid texture: wrong identifier\n");
 		free_tab(tmp);
+		free_tab(fullfile);
 		exit(1);
 	}
 }
 
-void	fill_tex_data(t_texture *tex, char **file)
+void	fill_tex_data(t_texture *tex, char **file, char **fullfile)
 {
 	char	**tmp;
 	int		i;
@@ -106,7 +109,7 @@ void	fill_tex_data(t_texture *tex, char **file)
 		if (line_empty(file[i]))
 			continue ;
 		tmp = ft_split(file[i], ' ');
-		fill_tex_data_2(tex, tmp);
+		fill_tex_data_2(tex, tmp, fullfile);
 		free_tab(tmp);
 		tmp = NULL;
 	}

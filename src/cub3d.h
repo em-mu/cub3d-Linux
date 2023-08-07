@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:53:38 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/04 16:43:58 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:51:00 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,13 @@ typedef struct s_game
 void				free_tab(char **tab);
 int					line_empty(char *str);
 int					is_valid_char(char c);
-void				exit_error(char **map, char *msg);
+void				exit_error(char **map, char *msg, t_game *game);
 void				get_map_dimensions(char **map, t_game *game);
 char				**dup_tab(char **tab);
 int					get_rgba(int r, int g, int b, int a);
 float				adjust_angle(float angle);
 void				put_player_pixel(t_game *game);
+void				delete_texture(t_game *game);
 
 // Parsing de la map
 int					check_map_format(char *s);
@@ -106,17 +107,17 @@ char				**read_map(int fd);
 int					find_map_len(int i, char **map);
 int					find_beginning_map(char *str);
 int					check_valid_line(char *str);
-void				check_closed_map(int i, char **map);
+void				check_closed_map(int i, char **map, t_game *game);
 int					find_end_map(char **map);
 int					check_closed_around_space(char **map);
 int					check_around(char **map, int i, size_t j);
-char				**extract_map_from_file(char **map_full_file);
+char				**extract_map_from_file(char **map_full_file, t_game *game);
 int					write_wrong_num_ar(int ar);
 int					check_arg_and_map(char **ar, int ac, t_game *game);
 
 // Parsing textures
-void				check_tex_num(char **file);
-void				fill_tex_data(t_texture *tex, char **file);
+void				check_tex_num(char **file, char **fullfill);
+void				fill_tex_data(t_texture *tex, char **file, char **fullfill);
 t_texture			read_texture_data(char **file);
 
 // Hook

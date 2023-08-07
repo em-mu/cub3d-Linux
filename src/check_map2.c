@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:47:33 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/04 16:01:34 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:51:19 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	check_closed_around_space(char **map)
 	return (0);
 }
 
-int check_text(mlx_texture_t *tex)
+int	check_text(mlx_texture_t *tex)
 {
 	if (tex->height != tex->width)
 		return (1);
 	return (0);
 }
 
-void	load_tex(t_game *game)
+static void	load_tex(t_game *game, char **fullfile)
 {
 	game->north = mlx_load_png(game->tex.north);
 	game->south = mlx_load_png(game->tex.south);
@@ -57,10 +57,11 @@ void	load_tex(t_game *game)
 	free(game->tex.south);
 	free(game->tex.west);
 	free(game->tex.east);
-	if (!game->north || !game->south || !game->west || !game->east 
-		|| check_text(game->north) || check_text(game->south) 
+	if (!game->north || !game->south || !game->west || !game->east
+		|| check_text(game->north) || check_text(game->south)
 		|| check_text(game->east) || check_text(game->west))
 	{
+		free_tab(fullfile);
 		printf("Error \nInvalid texture\n");
 		exit(EXIT_FAILURE);
 	}
@@ -80,8 +81,8 @@ int	check_arg_and_map(char **ar, int ac, t_game *game)
 		return (printf("Error \nInvalid map : map does not exist\n"));
 	full_file = read_map(fd);
 	game->tex = read_texture_data(full_file);
-	load_tex(game);
-	game->map = extract_map_from_file(full_file);
+	load_tex(game, full_file);
+	game->map = extract_map_from_file(full_file, game);
 	free_tab(full_file);
 	return (0);
 }

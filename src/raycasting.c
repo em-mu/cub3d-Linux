@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:51:02 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 17:19:05 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:08:30 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ double	calculate_rayon_horizontal(t_game *game, int i)
 		if (h < 0)
 			h = -h;
 		game->ray[0][i].r.x = game->player.coord.x - (h * artan);
-	}
-	if (game->ray[0][i].angle == 0 || game->ray[0][i].angle == PI)
-	{
-		game->ray[0][i].r.x = game->player.coord.x;
-		game->ray[0][i].r.y = game->player.coord.y;
 	}
 	distance_wall = check_walls(game, i, 0);
 	return (distance_wall);

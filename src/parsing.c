@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:59:55 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 17:24:28 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:50:52 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	free_and_exit(char **map, char **map_full_file)
 	exit(1);
 }
 
-char	**extract_map_from_file(char **map_full_file)
+char	**extract_map_from_file(char **map_full_file, t_game *game)
 {
 	char	**map;
 	int		i;
@@ -89,7 +89,7 @@ char	**extract_map_from_file(char **map_full_file)
 	while (map_full_file[i] && !find_beginning_map(map_full_file[i]))
 		i++;
 	len_map = find_map_len(i, map_full_file);
-	check_closed_map(i, map_full_file);
+	check_closed_map(i, map_full_file, game);
 	j = 0;
 	map = ft_calloc(sizeof(char *), len_map + 17);
 	len_line = get_len_max(map_full_file, len_map, i);

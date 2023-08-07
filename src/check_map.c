@@ -6,7 +6,7 @@
 /*   By: chabrune <chabrune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:52:52 by emuller           #+#    #+#             */
-/*   Updated: 2023/08/02 17:07:22 by chabrune         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:04:57 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	check_valid_line(char *str)
 		if (!is_valid_char(str[i]))
 		{
 			printf("Error\nInvalid map: Unknown character\n");
+			free(str);
 			exit(1);
 		}
 		i++;
@@ -63,7 +64,7 @@ int	check_valid_line(char *str)
 	return (0);
 }
 
-void	check_closed_map(int i, char **map)
+void	check_closed_map(int i, char **map, t_game *game)
 {
 	int	j;
 
@@ -72,12 +73,25 @@ void	check_closed_map(int i, char **map)
 			|| map[i][j] == '\t'))
 		j++;
 	if (map[i][j])
-		exit_error(map, "Invalid map: map not closed");
+		exit_error(map, "Invalid map: map not closed", game);
 	while (map[i] && i < find_end_map(map))
 	{
 		if (check_valid_line(map[i]) == -1)
-			exit_error(map, "Invalid map: map not closed");
+			exit_error(map, "Invalid map: map not closed", game);
 		i++;
+		// int diff = ft_strlen(map[i]) - ft_strlen(map[i-1]);
+		// if (diff++ > 0)
+		// {
+		// 	while (--diff > 0)
+		// 		if (map[i][ft_strlen(map[i]) - diff] == '0')
+		// 			exit_error(map, "Invalid map: map not closed", game);
+		// }
+		// else if (diff-- < 0)
+		// {
+		// 	while (--diff > 0)
+		// 		if (map[i-1][ft_strlen(map[i-1]) - diff] == '0')
+		// 			exit_error(map, "Invalid map: map not closed", game);
+		// }
 	}
 	i--;
 	j = 0;
@@ -85,7 +99,7 @@ void	check_closed_map(int i, char **map)
 			|| map[i][j] == '\t'))
 		j++;
 	if (map[i][j])
-		exit_error(map, "Invalid map: map not closed");
+		exit_error(map, "Invalid map: map not closed", game);
 }
 
 int	check_around(char **map, int i, size_t j)
