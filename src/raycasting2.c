@@ -33,11 +33,8 @@ int	coll_ray(t_game *game, int i, int j)
 	return (0);
 }
 
-static int	add_offset_vert(t_game *game, int i)
+static void	add_offset_vert(t_game *game, int i)
 {
-	// if (game->ray[1][i].r.x < 0 || game->ray[1][i].r.x >= DISPLAY_WIDTH
-	// 	|| game->ray[1][i].r.y < 0 || game->ray[1][i].r.y >= DISPLAY_HEIGHT)
-	// 	return (1);
 	if (game->ray[1][i].angle > (PI / 2) && game->ray[1][i].angle < (3 * PI
 			/ 2))
 	{
@@ -50,14 +47,10 @@ static int	add_offset_vert(t_game *game, int i)
 		game->ray[1][i].r.x -= game->ray[1][i].o.x;
 		game->ray[1][i].r.y -= game->ray[1][i].o.y;
 	}
-	return (0);
 }
 
-static int	add_offset_hori(t_game *game, int i)
+static void	add_offset_hori(t_game *game, int i)
 {
-	// if (game->ray[0][i].r.x < 0 || game->ray[0][i].r.x >= DISPLAY_WIDTH
-	// 	|| game->ray[0][i].r.y < 0 || game->ray[0][i].r.y >= DISPLAY_HEIGHT)
-	// 	return (1);
 	if (game->ray[0][i].angle < PI)
 	{
 		game->ray[0][i].r.x -= game->ray[0][i].o.x;
@@ -68,7 +61,6 @@ static int	add_offset_hori(t_game *game, int i)
 		game->ray[0][i].r.x += game->ray[0][i].o.x;
 		game->ray[0][i].r.y += game->ray[0][i].o.y;
 	}
-	return (0);
 }
 
 float	check_walls(t_game *game, int i, int side)
@@ -90,11 +82,9 @@ float	check_walls(t_game *game, int i, int side)
 		else
 		{
 			if (side == 1)
-				if (add_offset_vert(game, i) == 1)
-					break ;
+				add_offset_vert(game, i);
 			if (side == 0)
-				if (add_offset_hori(game, i) == 1)
-					break ;
+				add_offset_hori(game, i);
 		}
 	}
 	return (distance_wall);
