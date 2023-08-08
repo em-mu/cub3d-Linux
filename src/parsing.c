@@ -40,14 +40,14 @@ char	*ft_strdup_new(char *s1, int len)
 	if (!s)
 		return (0);
 	while (i < 8)
-		s[i++] = '1';
+		s[i++] = ' ';
 	j = 0;
 	while (s1[j])
 		s[i++] = s1[j++];
 	if (ft_strchr(s1, '\n'))
-		s[--i] = '1';
+		s[--i] = ' ';
 	while (i < len)
-		s[i++] = '1';
+		s[i++] = ' ';
 	return (s);
 }
 

@@ -79,19 +79,6 @@ void	check_closed_map(int i, char **map, t_game *game)
 		if (check_valid_line(map[i]) == -1)
 			exit_error(map, "Invalid map: map not closed", game);
 		i++;
-		// int diff = ft_strlen(map[i]) - ft_strlen(map[i-1]);
-		// if (diff++ > 0)
-		// {
-		// 	while (--diff > 0)
-		// 		if (map[i][ft_strlen(map[i]) - diff] == '0')
-		// 			exit_error(map, "Invalid map: map not closed", game);
-		// }
-		// else if (diff-- < 0)
-		// {
-		// 	while (--diff > 0)
-		// 		if (map[i-1][ft_strlen(map[i-1]) - diff] == '0')
-		// 			exit_error(map, "Invalid map: map not closed", game);
-		// }
 	}
 	i--;
 	j = 0;
